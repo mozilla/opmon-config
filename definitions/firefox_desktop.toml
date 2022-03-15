@@ -1,0 +1,43 @@
+[probes]
+
+[probes.child_process_launch_ms]
+data_source = "main_nightly"
+select_expression = "payload.histograms.child_process_launch_ms"
+friendly_name = "Child Process Launch Ms"
+category = "performance"
+type = "histogram"
+
+[probes.content_process_count]
+data_source = "main_nightly"
+select_expression = "payload.histograms.content_process_count"
+friendly_name = "Content Process Count"
+category = "performance"
+type = "histogram"
+
+[probes.pinned_event_count]
+data_source = "main_nightly"
+select_expression = "payload.processes.parent.scalars.browser_engagement_tab_pinned_event_count"
+friendly_name = "Pinned Event Count"
+category = "tabs"
+type = "scalar"
+
+[probes.tab_open_event_count]
+data_source = "main_nightly"
+select_expression = "payload.processes.parent.scalars.browser_engagement_tab_open_event_count"
+friendly_name = "Tab Open Event Count"
+category = "tabs"
+type = "scalar"
+
+[dimensions]
+
+[dimensions.os]
+data_source = "main_nightly"
+select_expression = "normalized_os"
+
+[data_sources]
+  
+[data_sources.main_nightly]
+from_expression = "mozdata.telemetry.main_nightly"
+category = "performance"
+type = "histogram"
+
