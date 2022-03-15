@@ -40,4 +40,5 @@ select_expression = "normalized_os"
 from_expression = "mozdata.telemetry.main_nightly"
 category = "performance"
 type = "histogram"
+submission_date_column = "DATE(submission_timestamp)"
 
