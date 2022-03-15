@@ -3,6 +3,7 @@
 name = "Fission"
 platform = "firefox_desktop"
 xaxis = "build_id"
+end_date= '2021-10-01'
 probes = [
     'content_process_count',
     'content_process_max',
