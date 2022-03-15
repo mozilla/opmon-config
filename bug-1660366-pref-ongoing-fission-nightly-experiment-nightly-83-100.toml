@@ -42,7 +42,7 @@ probes = [
 
 [project.population]
 
-data_source = "main_nightly"
+data_source = "main"
 boolean_pref = "environment.settings.fission_enabled"
 dimensions = ["os", "cores_count"]
 channel = "nightly"
