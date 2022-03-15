@@ -46,3 +46,13 @@ data_source = "main_nightly"
 boolean_pref = "environment.settings.fission_enabled"
 dimensions = ["os", "cores_count"]
 channel = "nightly"
+
+[data_sources]
+
+[data_sources.main]
+from_expression = """
+    (
+        SELECT * FROM mozdata.telemetry.main
+        WHERE normalized_channel = 'nightly'
+    )
+"""
