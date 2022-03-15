@@ -384,7 +384,7 @@ select_expression = "environment.system.cpu.cores"
 [data_sources]
   
 [data_sources.main]
-from_expression = "mozdata.telemetry.main"
+from_expression = "mozdata.telemetry.main_1pct"
 submission_date_column = "DATE(submission_timestamp)"
 
 [data_sources.crash]
