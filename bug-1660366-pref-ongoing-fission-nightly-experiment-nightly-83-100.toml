@@ -3,7 +3,7 @@
 name = "Fission"
 platform = "firefox_desktop"
 xaxis = "build_id"
-end_date= '2021-10-01'
+end_date = '2022-05-01'
 probes = [
     'content_process_count',
     'content_process_max',
@@ -47,3 +47,9 @@ data_source = "main"
 boolean_pref = "environment.settings.fission_enabled"
 dimensions = ["os", "cores_count"]
 channel = "nightly"
+
+[data_sources]
+
+[data_sources.main]
+from_expression = "mozdata.telemetry.main_nightly"
+
