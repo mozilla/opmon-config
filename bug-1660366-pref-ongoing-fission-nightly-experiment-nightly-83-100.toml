@@ -52,4 +52,4 @@ channel = "nightly"
 
 [data_sources.main]
 from_expression = "mozdata.telemetry.main_nightly"
-
+submission_date_column = "DATE(submission_timestamp)"
