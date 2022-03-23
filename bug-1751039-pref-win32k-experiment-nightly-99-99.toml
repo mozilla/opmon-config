@@ -2,7 +2,7 @@
 
 name = "Win32k Lockdown Experiment"
 platform = "firefox_desktop"
-xaxis = "day"
+xaxis = "submission_date"
 start_date = "2022-03-01"
 probes = [
     'gmplugin_crashes',
