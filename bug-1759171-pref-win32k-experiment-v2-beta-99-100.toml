@@ -1,6 +1,6 @@
 [project]
 
-name = "Win32k Lockdown Experiment"
+name = "Win32k Lockdown Experiment V2"
 platform = "firefox_desktop"
 xaxis = "submission_date"
 start_date = "2022-03-01"
