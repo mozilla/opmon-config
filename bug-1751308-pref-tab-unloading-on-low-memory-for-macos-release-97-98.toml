@@ -63,5 +63,11 @@ channel = "release"
 [data_sources]
 
 [data_sources.main]
-from_expression = "mozdata.telemetry.main_1pct"
+from_expression = """
+(
+    SELECT * 
+    FROM `moz-fx-data-shared-prod.telemetry_stable.main_v4`
+    WHERE sample_id = 0 AND normalized_channel = 'release'
+)
+"""
 submission_date_column = "DATE(submission_timestamp)"
