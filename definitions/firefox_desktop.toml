@@ -411,3 +411,4 @@ from_expression = """
             AND event_object = 'stats'
     )
 """
+submission_date_column = DATE(submission_date)
