@@ -403,7 +403,7 @@ submission_date_column = "DATE(submission_timestamp)"
 from_expression = """
     (
         SELECT
-            event_string_value
+            *
         FROM `moz-fx-data-shared-prod.telemetry.events`
         WHERE 
             event_category = 'memory_watcher'
