@@ -45,7 +45,8 @@ probes = [
     'content_crashes',
     'main_crashes',
     'shutdown_hangs',
-    'oom_crashes'
+    'oom_crashes',
+    'memory_pressure_count'
 ]
 
 [project.population]

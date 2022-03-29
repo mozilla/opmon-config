@@ -371,6 +371,14 @@ friendly_name = "Input Event Response Ms"
 category = "performance"
 type = "histogram"
 
+[probes.memory_pressure_count]
+data_source = "events_memory"
+select_expression = "SAFE_CAST(SPLIT(event_string_value, ",")[OFFSET(1)] AS NUMERIC)"
+friendly_name = "Memory Pressure Count"
+category = "performance"
+type = "scalar"
+
+
 [dimensions]
 
 [dimensions.os]
@@ -390,3 +398,16 @@ submission_date_column = "DATE(submission_timestamp)"
 [data_sources.crash]
 from_expression = "mozdata.telemetry.crash"
 submission_date_column = "DATE(submission_timestamp)"
+
+[data_sources.events_memory]
+from_expression = """
+    (
+        SELECT
+            event_string_value
+        FROM `moz-fx-data-shared-prod.telemetry.events`
+        WHERE 
+            event_category = 'memory_watcher'
+            AND event_method = 'on_high_memory'
+            AND event_object = 'stats'
+    )
+"""
