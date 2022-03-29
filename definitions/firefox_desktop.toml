@@ -373,7 +373,7 @@ type = "histogram"
 
 [probes.memory_pressure_count]
 data_source = "events_memory"
-select_expression = "SAFE_CAST(SPLIT(event_string_value, ",")[OFFSET(1)] AS NUMERIC)"
+select_expression = "SAFE_CAST(SPLIT(event_string_value, ',')[OFFSET(1)] AS NUMERIC)"
 friendly_name = "Memory Pressure Count"
 category = "performance"
 type = "scalar"
