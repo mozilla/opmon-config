@@ -6,7 +6,7 @@ jobs:
     - image: gcr.io/moz-fx-data-experiments/opmon:latest
     environment:
       BASE_COMMIT: << pipeline.git.base_revision >>
-      REVISION_COMMIT: <<pipeline.git.revision>>
+      REVISION_COMMIT: << pipeline.git.revision >>
     steps:
     - checkout
     - run:
