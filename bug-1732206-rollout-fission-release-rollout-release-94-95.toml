@@ -47,7 +47,6 @@ probes = [
 data_source = "main"
 dimensions = ["os", "cores_count"]
 channel = "release"
-branches = ["active"]
 
 [data_sources]
 
