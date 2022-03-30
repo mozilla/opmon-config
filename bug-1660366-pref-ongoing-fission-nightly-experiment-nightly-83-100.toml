@@ -35,7 +35,7 @@ probes = [
     'content_shutdown_crashes',
     'content_crashes',
     'shutdown_hangs',
-    'oom_crashes',
+    'oom_crashe2s',
     'main_crashes',
     'startup_crashes'
 ]
@@ -50,5 +50,5 @@ channel = "nightly"
 [data_sources]
 
 [data_sources.main]
-from_expression = "mozdata.telemetry.main_nightly"
+from_expression = "mozdata.telemetry.main_nightly_2"
 submission_date_column = "DATE(submission_timestamp)"

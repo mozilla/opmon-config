@@ -12,8 +12,8 @@ probes = [
     'content_shutdown_crashes',
     'content_crashes',
     'shutdown_hangs',
-    'oom_crashes',
     'main_crashes',
+    'oom_crashes',
     'startup_crashes'
 ]
 
