@@ -3,7 +3,6 @@
 name = "Fission Release Rollout"
 platform = "firefox_desktop"
 xaxis = "submission_date"
-start_date = "2021-11-09"
 probes = [
     'content_process_count',
     'content_process_max',
