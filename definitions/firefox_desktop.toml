@@ -389,7 +389,7 @@ select_expression = "normalized_os"
 data_source = "main"
 select_expression = "environment.system.cpu.cores"
 
-[dimensions.build_id]
+[dimensions.build]
 data_source = "main"
 select_expression = "SAFE.SUBSTR(application.build_id, 0, 8)"
 

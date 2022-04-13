@@ -13,9 +13,9 @@ probes = [
 
 data_source = "main"
 monitor_entire_population = true
-dimensions = ["build_id", "os"]
+dimensions = ["build", "os"]
 channel = "nightly"
-group_by_dimension = "build_id"
+group_by_dimension = "build"
 
 [data_sources]
 
