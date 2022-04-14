@@ -3,7 +3,7 @@
 name = "Mission Control Desktop Nightly"
 platform = "firefox_desktop"
 xaxis = "submission_date"
-start_date = "2022-04-01"
+start_date = "2022-03-01"
 probes = [
     'fx_tab_switch_composite_e10s_ms',
     'gc_ms',
