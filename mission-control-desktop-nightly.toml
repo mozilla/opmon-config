@@ -5,6 +5,7 @@ platform = "firefox_desktop"
 xaxis = "submission_date"
 start_date = "2022-04-01"
 probes = [
+    'gc_ms',
     'main_crashes',
     'oom_crashes',
 ]
