@@ -6,7 +6,9 @@ probes = [
     'shutdown_hangs',
     'oom_crashes',
     'main_crashes',
-    'startup_crashes'
+    'startup_crashes',
+    'gc_ms',
+    'memory_total'
 ]
 
 [project.population]
