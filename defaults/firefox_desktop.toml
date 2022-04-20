@@ -1,0 +1,20 @@
+[project]
+
+platform = "firefox_desktop"
+xaxis = "submission_date"
+probes = [
+    'gmplugin_crashes',
+    'gpu_crashes',
+    'plugin_crashes',
+    'content_process_count',
+    'content_shutdown_crashes',
+    'content_crashes',
+    'shutdown_hangs',
+    'oom_crashes',
+    'main_crashes',
+    'startup_crashes'
+]
+
+[project.population]
+
+data_source = "main"

@@ -1,0 +1,14 @@
+[project]
+
+xaxis = "submission_date"
+probes = [
+    'content_crashes',
+    'shutdown_hangs',
+    'oom_crashes',
+    'main_crashes',
+    'startup_crashes'
+]
+
+[project.population]
+
+data_source = "main"
