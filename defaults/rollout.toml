@@ -14,4 +14,3 @@ probes = [
 [project.population]
 
 data_source = "main"
-branches = ["active"]
