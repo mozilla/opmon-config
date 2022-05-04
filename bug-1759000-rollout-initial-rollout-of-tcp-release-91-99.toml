@@ -1,0 +1,68 @@
+[project]
+
+name = "Initial Rollout Of TCP"
+platform = "firefox_desktop"
+xaxis = "submission_date"
+probes = [
+    "search_count",
+    "search_with_ads_count",
+    "ad_clicks_count",
+    "child_process_launch_ms"
+]
+
+[project.population]
+
+data_source = "main"
+
+
+[probes]
+
+[probes.search_count]
+data_source = "main"
+select_expression = """
+(
+    (
+    SELECT
+        SUM(`moz-fx-data-shared-prod`.udf.extract_histogram_sum(value.value))
+    FROM
+        UNNEST(payload.keyed_histograms.search_counts) AS value
+    )
+)
+"""
+friendly_name = "Search Count"
+category = "search"
+type = "scalar"
+
+
+[probes.search_with_ads_count]
+data_source = "main"
+select_expression = """
+(
+      (
+        SELECT
+          SUM(value.value)
+        FROM
+          UNNEST(payload.processes.parent.keyed_scalars.browser_search_with_ads) AS value
+      )
+    )
+"""
+friendly_name = "Search with Ads Count"
+category = "search"
+type = "scalar"
+
+
+[probes.ad_clicks_count]
+data_source = "main"
+select_expression = """
+(
+      (
+        SELECT
+          SUM(value.value)
+        FROM
+          UNNEST(payload.processes.parent.keyed_scalars.browser_search_ad_clicks) AS value
+      )
+    )
+"""
+friendly_name = "Ad Clicks Count"
+category = "search"
+type = "scalar"
