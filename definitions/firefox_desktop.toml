@@ -378,6 +378,41 @@ friendly_name = "Memory Pressure Count"
 category = "performance"
 type = "scalar"
 
+[probes.tagged_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "tagged_sap"
+friendly_name = "Tagged Search Count"
+category = "search"
+type = "scalar"
+
+[probes.tagged_follow_on_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "tagged_follow_on_search_count"
+friendly_name = "Tagged Follow On Search Count"
+category = "search"
+type = "scalar"
+
+[probes.search_with_ads]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "search_with_ads"
+friendly_name = "Search with Ads"
+category = "search"
+type = "scalar"
+
+[probes.ad_click]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "ad_click"
+friendly_name = "Ad Clicks"
+category = "search"
+type = "scalar"
+
+[probes.organic_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "organic_search_count"
+friendly_name = "Organic Search Count"
+category = "search"
+type = "scalar"
+
 
 [dimensions]
 
@@ -392,6 +427,8 @@ select_expression = "environment.system.cpu.cores"
 [dimensions.build]
 data_source = "main"
 select_expression = "SAFE.SUBSTR(application.build_id, 0, 8)"
+
+
 
 [data_sources]
   
@@ -416,3 +453,7 @@ from_expression = """
     )
 """
 submission_date_column = "DATE(submission_date)"
+
+[data_sources.search_clients_engines_sources_daily]
+from_expression = "mozdata.search.search_clients_engines_sources_daily"
+submission_date_column = "submission_date"
