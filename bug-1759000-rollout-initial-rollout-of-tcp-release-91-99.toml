@@ -1,0 +1,15 @@
+[project]
+
+name = "Initial Rollout Of TCP"
+platform = "firefox_desktop"
+xaxis = "submission_date"
+probes = [
+    "search_count",
+    "search_with_ads_count",
+    "ad_clicks_count",
+    "child_process_launch_ms"
+]
+
+[project.population]
+
+data_source = "main"
