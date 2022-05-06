@@ -387,7 +387,7 @@ type = "scalar"
 
 [probes.tagged_follow_on_search_count]
 data_source = "search_clients_engines_sources_daily"
-select_expression = "tagged_follow_on_search_count"
+select_expression = "tagged_follow_on"
 friendly_name = "Tagged Follow On Search Count"
 category = "search"
 type = "scalar"
