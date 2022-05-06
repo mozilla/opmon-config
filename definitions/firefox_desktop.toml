@@ -408,7 +408,7 @@ type = "scalar"
 
 [probes.organic_search_count]
 data_source = "search_clients_engines_sources_daily"
-select_expression = "organic_search_count"
+select_expression = "organic"
 friendly_name = "Organic Search Count"
 category = "search"
 type = "scalar"
