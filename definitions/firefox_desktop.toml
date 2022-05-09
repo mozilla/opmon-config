@@ -413,6 +413,27 @@ friendly_name = "Organic Search Count"
 category = "search"
 type = "scalar"
 
+[probes.sap]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "sap"
+friendly_name = "SAP Search Count"
+category = "search"
+type = "scalar"
+
+[probes.ad_click_organic]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "ad_click_organic"
+friendly_name = "Organic Ad Click Count"
+category = "search"
+type = "scalar"
+
+[probes.search_with_ads_organic]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "search_with_ads_organic"
+friendly_name = "Organic Searches with Ads"
+category = "search"
+type = "scalar"
+
 
 [dimensions]
 
@@ -428,6 +449,9 @@ select_expression = "environment.system.cpu.cores"
 data_source = "main"
 select_expression = "SAFE.SUBSTR(application.build_id, 0, 8)"
 
+[dimensions.country]
+data_source = "main"
+select_expression = "normalized_country_code"
 
 
 [data_sources]

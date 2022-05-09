@@ -11,7 +11,10 @@ probes = [
     "tagged_follow_on_search_count",
     "search_with_ads",
     "ad_click",
-    "organic_search_count"
+    "organic_search_count",
+    "sap",
+    "ad_click_organic",
+    "search_with_ads_organic"
 ]
 
 [project.population]
@@ -22,7 +25,7 @@ branches = [
     "opt-out",
     "pref-does-not-exist"
 ]
-channel = "release"
+dimensions = ["os", "country"]
 monitor_entire_population = true
 
 
@@ -41,6 +44,8 @@ from_expression = """
                 DATE(submission_timestamp) AS submission_date,
                 application.build_id AS build_id,
                 normalized_channel,
+                normalized_os,
+                normalized_country_code,
                 CASE payload.processes.parent.scalars.privacy_dfpi_rollout_enabled_by_default 
                     WHEN 0 THEN "opt-out"
                     WHEN 1 THEN "opt-in"
@@ -54,6 +59,8 @@ from_expression = """
         submission_date,
         build_id,
         normalized_channel,
+        normalized_os,
+        normalized_country_code,
         STRUCT (    -- this is the structure opmon expects
             [
             STRUCT (
