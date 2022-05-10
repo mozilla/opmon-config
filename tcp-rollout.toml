@@ -52,7 +52,8 @@ from_expression = """
                     WHEN 2 THEN "pref-does-not-exist"
                     ELSE NULL
                 END AS branch
-            FROM `moz-fx-data-shared-prod.telemetry.main` 
+            FROM `moz-fx-data-shared-prod.telemetry.main`
+            WHERE normalized_channel = "release" OR normalized_channel = "beta"
         )
         SELECT 
         client_id,
