@@ -1,0 +1,68 @@
+[project]
+
+name = "Initial Rollout of TCP"
+platform = "firefox_desktop"
+alerts = [
+    "ci_diffs",
+    "crash_tresholds",
+    "memory_thresholds",
+    "hist_diff"
+]
+probes = [
+    'content_crashes',
+    'shutdown_hangs',
+    'oom_crashes',
+    'main_crashes',
+    'startup_crashes',
+    'gc_ms',
+    'memory_total',
+    'content_process_count'
+]
+
+[project.population]
+
+data_source = "main"
+
+[alerts]
+
+[alerts.ci_diffs]
+type = "ci_overlap"
+probes = [
+    "gc_ms",
+    "content_crashes",
+    "main_crashes",
+    "startup_crashes",
+]
+percentiles = [50, 90]
+
+[alerts.crash_tresholds]
+type = "threshold"
+probes = [
+    "content_crashes",
+    "shutdown_hangs",
+    "oom_crashes",
+    "gpu_crashes"
+]
+percentiles = [50, 90]
+min = [0, 0]
+max = [0, 1]
+
+[alerts.memory_thresholds]
+type = "threshold"
+probes = [
+    "memory_total"
+]
+percentiles = [50, 90]
+min = [0, 0]
+max = [500000, 850000]
+
+[alerts.hist_diff]
+type = "avg_diff"
+probes = [
+    "memory_total",
+    "oom_crashes",
+    "main_crashes"
+]
+window_size = 7
+max_relative_change = 0.5
+percentiles = [50, 90]

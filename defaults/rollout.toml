@@ -8,7 +8,8 @@ probes = [
     'main_crashes',
     'startup_crashes',
     'gc_ms',
-    'memory_total'
+    'memory_total',
+    'content_process_count'
 ]
 
 [project.population]
