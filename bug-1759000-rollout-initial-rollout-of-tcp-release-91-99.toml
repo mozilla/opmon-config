@@ -18,6 +18,7 @@ probes = [
     'memory_total',
     'content_process_count'
 ]
+reference_branch = "disabled"
 
 [project.population]
 
