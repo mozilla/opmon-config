@@ -1,0 +1,37 @@
+[project]
+
+name = "TCP Rollout Phase 2 Release"
+platform = "firefox_desktop"
+xaxis = "submission_date"
+start_date = "2022-06-08"
+end_date = "2022-08-30"
+
+probes = [
+    "tagged_search_count",
+    "tagged_follow_on_search_count",
+    "search_with_ads",
+    "ad_click",
+    "organic_search_count",
+    "sap",
+    "ad_click_organic",
+    "search_with_ads_organic"
+]
+
+[project.population]
+
+data_source = "main"
+boolean_pref = "payload.processes.parent.scalars.privacy_dfpi_rollout_tcp_by_default_feature"
+dimensions = ["os", "country"]
+channel = "release"
+
+[data_sources]
+
+[data_sources.main]
+from_expression = """
+(
+    SELECT * 
+    FROM `moz-fx-data-shared-prod.telemetry_stable.main_v4`
+)
+"""
+submission_date_column = "DATE(submission_timestamp)"
+build_id_column = "environment.build.build_id"
