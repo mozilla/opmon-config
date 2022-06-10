@@ -49,7 +49,7 @@ from_expression = """
             FROM `moz-fx-data-shared-prod.telemetry.main`,
                 UNNEST(environment.experiments) AS experiment
             WHERE 
-                normalized_channel = "release" OR normalized_channel = "beta" AND
+                (normalized_channel = "release" OR normalized_channel = "beta") AND
                 experiment.key IN (
                     "total-cookie-protection-beta-roll-out-phase-ii-switch-on-to-new-users", 
                     "total-cookie-protection-roll-out-to-users-phase-ii-switch-on-by-default"
