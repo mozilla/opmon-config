@@ -4,6 +4,9 @@ name = "Telemetry Alerts Prototype"
 platform = "firefox_desktop"
 xaxis = "submission_date"
 start_date = "2022-06-01"
+alerts = [
+    "hist_diff"
+]
 probes = [
     "checkerboard_severity",
     "gc_ms",
