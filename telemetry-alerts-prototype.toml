@@ -5,14 +5,21 @@ platform = "firefox_desktop"
 xaxis = "build_id"
 start_date = "2022-06-01"
 alerts = [
-    "hist_diff"
+    "hist_diff",
+    "crash_thresholds"
 ]
 probes = [
     "checkerboard_severity",
     "gc_ms",
     "main_crashes",
     "oom_crashes",
-    "js_pageload_execution_ms"
+    "js_pageload_execution_ms",
+    "memory_total",
+    "gc_ms_content",
+    "gc_budget_overrun",
+    "perf_first_contentful_paint_ms",
+    "active_ticks",
+    "subsession_length"
 ]
 
 [project.population]
@@ -30,14 +37,28 @@ submission_date_column = "DATE(submission_timestamp)"
 
 [alerts]
 
+[alerts.crash_thresholds]
+type = "threshold"
+probes = [
+    "main_crashes",
+    "oom_crashes"
+]
+percentiles = [50, 95]
+min = [0, 0]
+max = [10, 20]
+
 [alerts.hist_diff]
 type = "avg_diff"
 probes = [
     "checkerboard_severity",
     "gc_ms",
-    "main_crashes",
-    "oom_crashes",
-    "js_pageload_execution_ms"
+    "js_pageload_execution_ms",
+    "memory_total",
+    "gc_ms_content",
+    "gc_budget_overrun",
+    "perf_first_contentful_paint_ms",
+    "active_ticks",
+    "subsession_length"
 ]
 window_size = 7
 max_relative_change = 0.5
