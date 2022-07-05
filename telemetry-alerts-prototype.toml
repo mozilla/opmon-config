@@ -61,5 +61,5 @@ probes = [
     "subsession_length"
 ]
 window_size = 7
-max_relative_change = 0.5
+max_relative_change = 0.15
 percentiles = [25, 50, 75, 95]
