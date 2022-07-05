@@ -41,7 +41,8 @@ submission_date_column = "DATE(submission_timestamp)"
 type = "threshold"
 probes = [
     "main_crashes",
-    "oom_crashes"
+    "oom_crashes",
+    "content_crashes"
 ]
 percentiles = [50, 95]
 min = [0, 0]
