@@ -3,6 +3,7 @@
 name = "Telemetry Alerts Prototype"
 platform = "firefox_desktop"
 xaxis = "build_id"
+compact_visualization = true
 start_date = "2022-06-01"
 alerts = [
     "hist_diff",
