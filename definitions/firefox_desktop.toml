@@ -345,7 +345,7 @@ type = "histogram"
 
 [probes.js_pageload_execution_ms]
 data_source = "main"
-select_expression = "MAX(payload.processes.content.histograms.js_pageload_execution_ms)"
+select_expression = "ARRAY_AGG(mozfun.hist.extract(payload.processes.content.histograms.js_pageload_execution_ms) IGNORE NULLS)"
 friendly_name = "Js Pageload Execution Ms"
 category = "performance"
 type = "histogram"
