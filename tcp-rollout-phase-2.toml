@@ -6,7 +6,7 @@ xaxis = "submission_date"
 start_date = "2022-06-08"
 end_date = "2022-08-30"
 
-probes = [
+metrics = [
     "tagged_search_count",
     "tagged_follow_on_search_count",
     "search_with_ads",
@@ -24,8 +24,106 @@ branches = [
     "enabled",
     "disabled"
 ]
-dimensions = ["os", "country"]
+dimensions = ["os"]
 monitor_entire_population = true
+
+
+[metrics]
+
+[metrics.tagged_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(tagged_sap)"
+friendly_name = "Tagged Search Count"
+category = "search"
+type = "scalar"
+
+[metrics.tagged_search_count.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.tagged_follow_on_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(tagged_follow_on)"
+friendly_name = "Tagged Follow On Search Count"
+category = "search"
+type = "scalar"
+
+[metrics.tagged_follow_on_search_count.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.search_with_ads]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(search_with_ads)"
+friendly_name = "Search with Ads"
+category = "search"
+type = "scalar"
+
+[metrics.search_with_ads.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.ad_click]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(ad_click)"
+friendly_name = "Ad Clicks"
+category = "search"
+type = "scalar"
+
+[metrics.ad_click.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.organic_search_count]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(organic)"
+friendly_name = "Organic Search Count"
+category = "search"
+type = "scalar"
+
+[metrics.organic_search_count.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.search_with_ads_organic]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(search_with_ads_organic)"
+friendly_name = "Organic Searches with Ads"
+category = "search"
+type = "scalar"
+
+[metrics.search_with_ads_organic.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.sap]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(sap)"
+friendly_name = "SAP Search Count"
+category = "search"
+type = "scalar"
+
+[metrics.sap.statistics]
+sum = {}
+mean = {}
+
+
+[metrics.ad_click_organic]
+data_source = "search_clients_engines_sources_daily"
+select_expression = "SUM(ad_click_organic)"
+friendly_name = "Organic Ad Click Count"
+category = "search"
+type = "scalar"
+
+[metrics.ad_click_organic.statistics]
+sum = {}
+mean = {}
 
 
 [data_sources]

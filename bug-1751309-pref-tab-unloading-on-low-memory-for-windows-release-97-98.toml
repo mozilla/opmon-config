@@ -4,7 +4,7 @@ name = "Tab Unloading V2 Windows"
 platform = "firefox_desktop"
 xaxis = "submission_date"
 start_date = '2022-02-14'
-probes = [
+metrics = [
     'tab_unload_count',
     'tab_reload_count',
     'tab_unload_to_reload',

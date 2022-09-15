@@ -2,7 +2,7 @@
 
 platform = "firefox_desktop"
 xaxis = "submission_date"
-probes = [
+metrics = [
     'gmplugin_crashes',
     'gpu_crashes',
     'plugin_crashes',

@@ -3,7 +3,7 @@
 name = "Fission"
 platform = "firefox_desktop"
 xaxis = "build_id"
-probes = [
+metrics = [
     'content_process_count',
     'content_process_max',
     'checkerboard_severity',
