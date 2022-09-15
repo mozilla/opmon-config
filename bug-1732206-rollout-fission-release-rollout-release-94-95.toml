@@ -3,7 +3,7 @@
 name = "Fission Release Rollout"
 platform = "firefox_desktop"
 xaxis = "submission_date"
-probes = [
+metrics = [
     'content_process_count',
     'content_process_max',
     'checkerboard_severity',

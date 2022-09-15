@@ -1,7 +1,7 @@
 [project]
 
 xaxis = "submission_date"
-probes = [
+metrics = [
     'content_crashes',
     'shutdown_hangs',
     'oom_crashes',

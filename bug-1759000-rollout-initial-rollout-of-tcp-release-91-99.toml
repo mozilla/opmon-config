@@ -8,15 +8,40 @@ alerts = [
     "memory_thresholds",
     "hist_diff"
 ]
-probes = [
-    'content_crashes',
-    'shutdown_hangs',
-    'oom_crashes',
-    'main_crashes',
-    'startup_crashes',
+metrics = [
+    'tab_unload_count',
+    'tab_reload_count',
+    'tab_unload_to_reload',
+    'checkerboard_severity',
+    'child_process_launch_ms',
+    'content_frame_time_vsync',
+    'content_process_max',
+    'cycle_collector_max_pause',
+    'cycle_collector_max_pause_content',
+    'fx_new_window_ms',
+    'fx_tab_switch_composite_e10s_ms',
+    'gc_budget_overrun',
+    'gc_mark_rate_2',
+    'gc_reason_2',
+    'gc_max_pause_2',
+    'gc_max_pause_2_content',
     'gc_ms',
+    'gc_ms_content',
+    'gc_non_incremental',
+    'gc_slice_during_idle',
+    'gc_slice_during_idle_content',
+    'js_pageload_execution_ms',
+    'concurrent_opened_tab_count',
+    'concurrent_pinned_tab_count',
+    'loaded_tab_count',
     'memory_total',
-    'content_process_count'
+    'memory_unique_content_startup',
+    'perf_first_contentful_paint_ms',
+    'perf_page_load_time_ms',
+    'subsession_length',
+    'tab_open_event_count',
+    'tab_pinned_event_count',
+    'content_crashes'
 ]
 reference_branch = "disabled"
 
@@ -28,42 +53,43 @@ data_source = "main"
 
 [alerts.ci_diffs]
 type = "ci_overlap"
-probes = [
+metrics = [
     "gc_ms",
     "content_crashes",
     "main_crashes",
     "startup_crashes",
 ]
-percentiles = [50, 90]
+parameters = [50, 90]
+statistics = ["percentile"]
 
 [alerts.crash_tresholds]
 type = "threshold"
-probes = [
+metrics = [
     "content_crashes",
     "shutdown_hangs",
     "oom_crashes",
     "gpu_crashes"
 ]
-percentiles = [50, 90]
+parameters = [50, 90]
 min = [0, 0]
 max = [0, 1]
 
 [alerts.memory_thresholds]
 type = "threshold"
-probes = [
+metrics = [
     "memory_total"
 ]
-percentiles = [50, 90]
+parameters = [50, 90]
 min = [0, 0]
 max = [500000, 850000]
 
 [alerts.hist_diff]
 type = "avg_diff"
-probes = [
+metrics = [
     "memory_total",
     "oom_crashes",
     "main_crashes"
 ]
 window_size = 7
 max_relative_change = 0.5
-percentiles = [50, 90]
+parameters = [50, 90]

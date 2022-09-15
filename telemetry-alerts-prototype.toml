@@ -9,7 +9,7 @@ alerts = [
     "hist_diff",
     "crash_thresholds"
 ]
-probes = [
+metrics = [
     "checkerboard_severity",
     "gc_ms",
     "main_crashes",
@@ -40,7 +40,7 @@ submission_date_column = "DATE(submission_timestamp)"
 
 [alerts.crash_thresholds]
 type = "threshold"
-probes = [
+metrics = [
     "main_crashes",
     "oom_crashes",
     "content_crashes"
@@ -51,7 +51,7 @@ max = [10, 20]
 
 [alerts.hist_diff]
 type = "avg_diff"
-probes = [
+metrics = [
     "checkerboard_severity",
     "gc_ms",
     "js_pageload_execution_ms",

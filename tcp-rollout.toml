@@ -6,7 +6,7 @@ xaxis = "submission_date"
 start_date = "2022-03-01"
 end_date = "2022-06-30"
 
-probes = [
+metrics = [
     "tagged_search_count",
     "tagged_follow_on_search_count",
     "search_with_ads",
