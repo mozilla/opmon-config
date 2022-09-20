@@ -4,6 +4,7 @@ name = "Telemetry Alerts Prototype"
 platform = "firefox_desktop"
 xaxis = "build_id"
 compact_visualization = true
+skip_default_metrics = true
 start_date = "2022-06-01"
 alerts = [
     "hist_diff",
@@ -30,6 +31,21 @@ monitor_entire_population = true
 dimensions = ["os"]
 channel = "nightly"
 
+
+[metrics.main_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(payload.process_type = 'main' OR payload.process_type IS NULL, 1, 0))"
+
+[metrics.main_crashes.statistics]
+sum = {}
+
+[metrics.oom_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(payload.metadata.oom_allocation_size IS NOT NULL, 1, 0))"
+
+[metrics.oom_crashes.statistics]
+sum = {}
+
 [data_sources]
 
 [data_sources.main]
@@ -42,12 +58,10 @@ submission_date_column = "DATE(submission_timestamp)"
 type = "threshold"
 metrics = [
     "main_crashes",
-    "oom_crashes",
-    "content_crashes"
+    "oom_crashes"
 ]
-percentiles = [50, 95]
-min = [0, 0]
-max = [10, 20]
+min = [0]
+max = [20]
 
 [alerts.hist_diff]
 type = "avg_diff"
