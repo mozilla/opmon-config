@@ -2,7 +2,6 @@
 
 xaxis = "submission_date"
 metrics = [
-    'gc_ms',
     'memory_total'
 ]
 
