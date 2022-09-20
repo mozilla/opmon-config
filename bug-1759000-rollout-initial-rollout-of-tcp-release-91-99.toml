@@ -29,19 +29,7 @@ metrics = [
     'gc_ms_content',
     'gc_non_incremental',
     'gc_slice_during_idle',
-    'gc_slice_during_idle_content',
-    'js_pageload_execution_ms',
-    'concurrent_opened_tab_count',
-    'concurrent_pinned_tab_count',
-    'loaded_tab_count',
-    'memory_total',
-    'memory_unique_content_startup',
-    'perf_first_contentful_paint_ms',
-    'perf_page_load_time_ms',
-    'subsession_length',
-    'tab_open_event_count',
-    'tab_pinned_event_count',
-    'content_crashes'
+    'gc_slice_during_idle_content'
 ]
 reference_branch = "disabled"
 
