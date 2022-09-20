@@ -10,12 +10,7 @@ alerts = [
 ]
 metrics = [
     'tab_unload_count',
-    'tab_reload_count',
-    'tab_unload_to_reload',
-    'checkerboard_severity',
-    'child_process_launch_ms',
-    'content_frame_time_vsync',
-    'content_process_max',
+    'tab_reload_count'
 ]
 reference_branch = "disabled"
 
