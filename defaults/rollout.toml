@@ -2,14 +2,8 @@
 
 xaxis = "submission_date"
 metrics = [
-    'content_crashes',
-    'shutdown_hangs',
-    'oom_crashes',
-    'main_crashes',
-    'startup_crashes',
     'gc_ms',
-    'memory_total',
-    'content_process_count'
+    'memory_total'
 ]
 
 [project.population]
