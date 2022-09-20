@@ -13,3 +13,41 @@ metrics = [
 [project.population]
 
 data_source = "main"
+
+
+[metrics.main_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(payload.process_type = 'main' OR payload.process_type IS NULL, 1, 0))"
+
+[metrics.main_crashes.statistics]
+sum = {}
+
+[metrics.oom_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(payload.metadata.oom_allocation_size IS NOT NULL, 1, 0))"
+
+[metrics.oom_crashes.statistics]
+sum = {}
+
+
+[metrics.startup_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(payload.metadata.startup_crash = '1', 1, 0))"
+
+[metrics.startup_crashes.statistics]
+sum = {}
+
+[metrics.content_crashes]
+data_source = "crash"
+select_expression = "SUM(IF(REGEXP_CONTAINS(payload.process_type, 'content') AND NOT REGEXP_CONTAINS(COALESCE(payload.metadata.ipc_channel_error, ''), 'ShutDownKill'), 1, 0))"
+
+[metrics.content_crashes.statistics]
+sum = {}
+
+
+[metrics.shutdown_hangs]
+data_source = "crash"
+select_expression = "SUM(IF(payload.metadata.moz_crash_reason LIKE 'MOZ_CRASH%', 1, 0))"
+
+[metrics.shutdown_hangs.statistics]
+sum = {}
