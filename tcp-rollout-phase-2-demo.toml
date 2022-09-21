@@ -181,7 +181,7 @@ from_expression = """
         STRUCT (    -- this is the structure opmon expects
             [
             STRUCT (
-                "tcp-rollout-phase-2" AS key,   -- dummy experiment/rollout slug to make opmon happy
+                "tcp-rollout-phase-2-demo" AS key,   -- dummy experiment/rollout slug to make opmon happy
                 STRUCT(branch AS branch) AS value
             )
             ] AS experiments
