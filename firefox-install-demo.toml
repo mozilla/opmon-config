@@ -1,0 +1,80 @@
+[project]
+
+name = "Firefox Installation Success Rate"
+platform = "firefox_desktop"
+xaxis = "submission_date"
+start_date = "2021-11-01"
+# We want continuous monitoring of this data
+#end_date =
+skip_default_metrics = true
+
+metrics = [
+    "install_success_rate",
+]
+
+[project.population]
+
+data_source = "firefox_installs"
+branches = [
+    "Win7",
+    "Win8",
+    "Win8.1",
+    "Win10"
+]
+monitor_entire_population = true
+
+
+[metrics]
+
+
+[metrics.install_success_rate]
+data_source = "firefox_installs"
+select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
+type = "scalar"
+
+[metrics.install_success_rate.statistics]
+sum = {}
+mean = {}
+
+[data_sources]
+
+[data_sources.firefox_installs]
+from_expression = """
+    (
+        WITH success_rate_per_branch AS (
+            SELECT 
+                DATE(submission_timestamp) AS submission_date,
+                document_id,
+                build_channel,
+                succeeded,
+                CASE 
+                    WHEN os_version LIKE '6.1%' THEN 'Win7'
+                    WHEN os_version LIKE '6.2%' THEN 'Win8'
+                    WHEN os_version LIKE '6.3%' THEN 'Win8.1'
+                    WHEN os_version LIKE '10%' THEN 'Win10'
+                    ELSE "other"
+                END as branch,
+            FROM mozdata.firefox_installer.install
+            WHERE 
+                build_channel = "release"
+                AND installer_type = 'stub'
+        )
+        SELECT 
+        submission_date,
+        document_id,
+        build_channel,
+        succeeded,
+        STRUCT (    -- this is the structure opmon expects
+            [
+            STRUCT (
+                "firefox-install-demo" AS key,   -- dummy experiment/rollout slug to make opmon happy
+                STRUCT(branch AS branch) AS value
+            )
+            ] AS experiments
+        ) AS environment
+        FROM success_rate_per_branch
+        WHERE branch != "other"
+    )
+"""
+submission_date_column = "submission_date"
+client_id_column = "document_id"
