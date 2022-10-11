@@ -9,7 +9,7 @@ start_date = "2021-11-01"
 skip_default_metrics = true
 
 metrics = [
-    "success_rate",
+    "install_success_rate",
 ]
 
 [project.population]
@@ -53,7 +53,7 @@ from_expression = """
                     WHEN os_version LIKE '10%' THEN 'Win10'
                     ELSE "other"
                 END as branch,
-            FROM firefox_installer.install
+            FROM mozdata.firefox_installer.install
             WHERE 
                 build_channel = "release"
                 AND installer_type = 'stub'
