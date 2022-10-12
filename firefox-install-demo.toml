@@ -10,6 +10,7 @@ skip_default_metrics = true
 
 metrics = [
     "install_success_rate",
+    "install_volume",
 ]
 
 alerts = [
@@ -37,7 +38,14 @@ select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
 type = "scalar"
 
 [metrics.install_success_rate.statistics]
-sum = {}
+mean = {}
+
+[metrics.install_volume]
+data_source = "firefox_installs"
+select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
+type = "scalar"
+
+[metrics.install_volume.statistics]
 mean = {}
 
 [alerts]
