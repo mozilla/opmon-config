@@ -10,11 +10,13 @@ skip_default_metrics = true
 
 metrics = [
     "install_success_rate",
-    "install_volume",
+    "install_volume_by_os_version",
+    "install_volume_total",
 ]
 
 alerts = [
-    "install_success_rate"
+    "install_success_rate",
+    "install_volume_total",
 ]
 
 [project.population]
@@ -40,13 +42,21 @@ type = "scalar"
 [metrics.install_success_rate.statistics]
 mean = {}
 
-[metrics.install_volume]
+[metrics.install_volume_by_os_version]
 data_source = "firefox_installs"
 select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
 type = "scalar"
 
-[metrics.install_volume.statistics]
-mean = {}
+[metrics.install_volume_by_os_version.statistics]
+sum = {}
+
+[metrics.install_volume_total]
+data_source = "firefox_installs_all_versions"
+select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
+type = "scalar"
+
+[metrics.install_volume_total.statistics]
+sum = {}
 
 [alerts]
 
@@ -57,6 +67,18 @@ metrics = [
 ]
 # is this per os version, or average over all, or....?
 min = [95]
+
+[alerts.install_volume_total]
+type = "avg_diff"
+metrics = [
+    "install_volume_total"
+]
+# is this a rolling window, eg: comparing monday -> sunday to monday -> tuesday
+# or comparing the entire previous week?
+window_size = 7
+# does this mean a drop of 20% will trigger an alert (eg: 100 -> 80), or a drop of 80% (eg: 100 -> 20)?
+max_relative_change = 0.8
+# percentile omitted because it doesn't apply here? Is that valid?
 
 [data_sources]
 
@@ -76,6 +98,41 @@ from_expression = """
                     WHEN os_version LIKE '10%' THEN 'Win10'
                     ELSE "other"
                 END as branch,
+            FROM mozdata.firefox_installer.install
+            WHERE 
+                build_channel = "release"
+                AND installer_type = 'stub'
+        )
+        SELECT 
+        submission_date,
+        document_id,
+        build_channel,
+        succeeded,
+        STRUCT (    -- this is the structure opmon expects
+            [
+            STRUCT (
+                "firefox-install-demo" AS key,   -- dummy experiment/rollout slug to make opmon happy
+                STRUCT(branch AS branch) AS value
+            )
+            ] AS experiments
+        ) AS environment
+        FROM success_rate_per_branch
+        WHERE branch != "other"
+    )
+"""
+submission_date_column = "submission_date"
+client_id_column = "document_id"
+
+[data_sources.firefox_installs_all_versions]
+from_expression = """
+    (
+        WITH success_rate_per_branch AS (
+            SELECT 
+                DATE(submission_timestamp) AS submission_date,
+                document_id,
+                build_channel,
+                succeeded,
+                "All versions" AS branch,
             FROM mozdata.firefox_installer.install
             WHERE 
                 build_channel = "release"
