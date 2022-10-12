@@ -12,6 +12,10 @@ metrics = [
     "install_success_rate",
 ]
 
+alerts = [
+    "install_success_rate"
+]
+
 [project.population]
 
 data_source = "firefox_installs"
@@ -35,6 +39,16 @@ type = "scalar"
 [metrics.install_success_rate.statistics]
 sum = {}
 mean = {}
+
+[alerts]
+
+[alerts.install_success_rate]
+type = "threshold"
+metrics = [
+    "install_success_rate"
+]
+# is this per os version, or average over all, or....?
+min = [95]
 
 [data_sources]
 
