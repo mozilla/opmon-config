@@ -55,8 +55,10 @@ type = "threshold"
 metrics = [
     "install_success_rate"
 ]
-# is this per os version, or average over all, or....?
-min = [95]
+# This one number is applied to each OS, unfortunately. Ideally
+# we would have per-branch configuration, since each Windows version
+# has its own fairly steady success rate.
+min = [86]
 
 [data_sources]
 
