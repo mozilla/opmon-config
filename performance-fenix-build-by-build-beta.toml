@@ -3,6 +3,7 @@
 name = "Build over build performance for Fenix (Beta)"
 platform = "fenix"
 xaxis = "build_id"
+start_date = "2022-10-01"
 metrics = [
     "performance_pageload_load_time",
     "performance_pageload_load_time_responsestart",
@@ -20,13 +21,16 @@ metrics = [
 
 [project.population]
 
-data_source = "main"
+data_source = "baseline"
 channel = "beta"
-dimensions = ["os"]
 monitor_entire_population = true
 
 [data_sources]
 
 # by default the metrics data source is based on org_mozilla_firefox
 [data_sources.metrics]
+default_dataset = "org_mozilla_firefox_beta"
+
+
+[data_sources.baseline]
 default_dataset = "org_mozilla_firefox_beta"
