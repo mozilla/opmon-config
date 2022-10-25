@@ -1,0 +1,32 @@
+[project]
+
+name = "Build over build performance for Fenix (Beta)"
+platform = "fenix"
+xaxis = "build_id"
+metrics = [
+    "performance_pageload_load_time",
+    "performance_pageload_load_time_responsestart",
+    "performance_pageload_req_anim_frame_callback",
+    "performance_pageload_dcl",
+    "performance_pageload_dcl_responsestart",
+    "performance_pageload_fcp",
+    "performance_pageload_fcp_responsestart",
+    "perf_startup_cold_main_app_to_first_frame",
+    "perf_startup_cold_view_app_to_first_frame",
+    "storage_stats_app_bytes",
+    "storage_stats_cache_bytes",
+    "storage_stats_data_dir_bytes",
+]
+
+[project.population]
+
+data_source = "main"
+channel = "beta"
+dimensions = ["os"]
+monitor_entire_population = true
+
+[data_sources]
+
+# by default the metrics data source is based on org_mozilla_firefox
+[data_sources.metrics]
+default_dataset = "org_mozilla_firefox_beta"
