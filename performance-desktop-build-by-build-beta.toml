@@ -3,6 +3,7 @@
 name = "Build over build performance for Desktop (Beta)"
 platform = "firefox_desktop"
 xaxis = "build_id"
+start_date = "2022-10-01"
 metrics = [
     "perf_page_load_time_ms",
     "perf_first_contentful_paint_ms",
