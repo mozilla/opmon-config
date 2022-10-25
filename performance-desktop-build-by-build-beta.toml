@@ -16,7 +16,6 @@ metrics = [
     "perf_dom_content_loaded_time",
     "perf_dom_contentperf_dom_content_loaded_time_from_responsestart_ms_loaded_time",
     "perf_page_load_time_from_responsestart",
-    "perf_first_contentful_paint",
     "perf_request_animation_callback_non_pageload",
     "perf_request_animation_callback_pageload",
     "js_pageload_xdr_encoding_ms",
