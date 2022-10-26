@@ -30,6 +30,7 @@ metrics = [
     "cycle_collector_visited_gced",
     "cycle_collector_visited_ref_counted"
 ]
+ignore_default_metrics = true
 
 [project.population]
 
@@ -40,8 +41,11 @@ monitor_entire_population = true
 
 [data_sources]
 
-# by default main is based on a 1 percent sample, overriding the data source to use the normal main table
+# use a 1 percent sample for now
 [data_sources.main]
-from_expression = "mozdata.telemetry.main"
+from_expression = """(
+    SELECT * FROM `moz-fx-data-shared-prod.telemetry_derived.main_1pct_v1`
+    WHERE normalized_channel = "beta"
+)"""
 submission_date_column = "DATE(submission_timestamp)"
 
