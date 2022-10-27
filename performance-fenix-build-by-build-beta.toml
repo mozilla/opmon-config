@@ -29,9 +29,24 @@ monitor_entire_population = true
 [data_sources]
 
 # by default the metrics data source is based on org_mozilla_firefox
+# query 1% sample
 [data_sources.metrics]
+from_expression = """(
+    SELECT
+        p.*,
+        DATE(p.submission_timestamp) AS submission_date
+    FROM `moz-fx-data-shared-prod.{dataset}.metrics` p
+    WHERE sample_id = 0
+)"""
 default_dataset = "org_mozilla_firefox_beta"
 
 
 [data_sources.baseline]
+from_expression = """(
+    SELECT
+        p.*,
+        DATE(p.submission_timestamp) AS submission_date
+    FROM `moz-fx-data-shared-prod.{dataset}.baseline` p
+    WHERE sample_id = 0
+)"""
 default_dataset = "org_mozilla_firefox_beta"
