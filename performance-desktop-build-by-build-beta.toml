@@ -30,7 +30,7 @@ metrics = [
     "cycle_collector_visited_gced",
     "cycle_collector_visited_ref_counted"
 ]
-ignore_default_metrics = true
+skip_default_metrics = true
 
 [project.population]
 
