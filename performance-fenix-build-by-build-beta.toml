@@ -18,7 +18,7 @@ metrics = [
     "storage_stats_cache_bytes",
     "storage_stats_data_dir_bytes",
 ]
-ignore_default_metrics = true
+skip_default_metrics = true
 
 [project.population]
 
