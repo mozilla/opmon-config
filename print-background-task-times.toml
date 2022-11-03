@@ -167,19 +167,19 @@ total_ratio = { denominator_metric = "printing_dialog_opened_via_preview_tm" }
 
 
 [metrics.print_count]
-select_expression = """SUM(
+select_expression = """NULLIF(SUM(
     COALESCE(`moz-fx-data-shared-prod`.udf.get_key(payload.processes.parent.keyed_scalars.printing_target_type, "pdf_file"), 0) + 
     COALESCE(`moz-fx-data-shared-prod`.udf.get_key(payload.processes.parent.keyed_scalars.printing_target_type, "pdf_unknown"), 0) + 
     COALESCE(`moz-fx-data-shared-prod`.udf.get_key(payload.processes.parent.keyed_scalars.printing_target_type, "xps_file"), 0) +
     COALESCE(`moz-fx-data-shared-prod`.udf.get_key(payload.processes.parent.keyed_scalars.printing_target_type, "unknown"), 0)
-)"""
+), 0)"""
 data_source = "main"
 friendly_name = "Print Count"
 description = "Total number of prints"
 
 [metrics.print_count.statistics]
 mean = { }
-percentile = { }
+percentile = { remove_nulls = true }
 
 
 
