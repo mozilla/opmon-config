@@ -255,9 +255,9 @@ from_expression = """(
         ABORT_count AS abort,
         NOTIMPLEMENTED_count AS notimplemented,
         OOM_count AS oom,
-        FAILURE_count + GFX_PRINTER_DOC_IS_BUSY_count + NOT_AVAILABLE_count + UNEXPECTED_count + 
-        NO_PRINTER_count + NAME_NOT_FOUND_count + CANNOT_OPEN_FILE_count + STARTDOC_count + 
-        ENDDOC_count + STARTPAGE_count + ABORT_count + NOTIMPLEMENTED_count + OOM_count AS total_errors
+        COALESCE(FAILURE_count, 0) + COALESCE(GFX_PRINTER_DOC_IS_BUSY_count, 0) + COALESCE(NOT_AVAILABLE_count, 0) + COALESCE(UNEXPECTED_count, 0) + 
+        COALESCE(NO_PRINTER_count, 0) + COALESCE(NAME_NOT_FOUND_count, 0) + COALESCE(CANNOT_OPEN_FILE_count, 0) + COALESCE(STARTDOC_count, 0) + 
+        COALESCE(ENDDOC_count, 0) + COALESCE(STARTPAGE_count, 0) + COALESCE(ABORT_count, 0) + COALESCE(NOTIMPLEMENTED_count, 0) + COALESCE(OOM_count, 0) AS total_errors
     FROM (
         SELECT 
             submission_timestamp,
