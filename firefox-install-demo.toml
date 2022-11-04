@@ -42,7 +42,7 @@ metrics = [
 
 [metrics.install_volume_total]
 data_source = "firefox_installs"
-select_expression = "IF(ANY_VALUE(os) != 'other' AND LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) != 'other', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
 [metrics.install_volume_total.statistics]
@@ -51,7 +51,7 @@ mean = {}
 
 [metrics.install_volume_win7]
 data_source = "firefox_installs"
-select_expression = "IF(ANY_VALUE(os = 'Win7') AND LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) = 'Win7', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
 [metrics.install_volume_win7.statistics]
@@ -60,7 +60,7 @@ mean = {}
 
 [metrics.install_volume_win8]
 data_source = "firefox_installs"
-select_expression = "IF(ANY_VALUE(os = 'Win8') AND LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) = 'Win8', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
 [metrics.install_volume_win8.statistics]
@@ -69,7 +69,7 @@ mean = {}
 
 [metrics.install_volume_win8_1]
 data_source = "firefox_installs"
-select_expression = "IF(ANY_VALUE(os = 'Win8.1') AND LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) = 'Win8.1', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
 [metrics.install_volume_win8_1.statistics]
@@ -78,7 +78,7 @@ mean = {}
 
 [metrics.install_volume_win10]
 data_source = "firefox_installs"
-select_expression = "IF(ANY_VALUE(os = 'Win10') AND LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) = 'Win10', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
 [metrics.install_volume_win10.statistics]
