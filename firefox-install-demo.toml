@@ -9,95 +9,122 @@ start_date = "2021-11-01"
 skip_default_metrics = true
 
 metrics = [
-    "install_success_rate",
-    "install_volume_by_os_version",
+    "install_volume_total",
+    "install_volume_win7",
+    "install_volume_win8",
+    "install_volume_win8_1",
+    "install_volume_win10"
 ]
 
 alerts = [
-    "install_success_rate",
+    "install_success_rate_win",
+    "install_success_rate_win8"
 ]
 
 [project.population]
 
 data_source = "firefox_installs"
-branches = [
-    "Win7",
-    "Win8",
-    "Win8.1",
-    "Win10"
-]
 monitor_entire_population = true
+
+[project.metric_groups.installs_by_os]
+friendly_name = "Installs by OS"
+description = "Breakdown of installs by OS"
+metrics = [
+    "install_volume_win7",
+    "install_volume_win8",
+    "install_volume_win8_1",
+    "install_volume_win10"
+]
+
 
 
 [metrics]
 
-
-[metrics.install_success_rate]
+[metrics.install_volume_total]
 data_source = "firefox_installs"
-select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) != 'other', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
-[metrics.install_success_rate.statistics]
+[metrics.install_volume_total.statistics]
+sum = {}
 mean = {}
 
-[metrics.install_volume_by_os_version]
+[metrics.install_volume_win7]
 data_source = "firefox_installs"
-select_expression = "IF(LOGICAL_OR(succeeded), 1, 0) * 100"
+select_expression = "IF(ANY_VALUE(os) = 'Win7', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
 type = "scalar"
 
-[metrics.install_volume_by_os_version.statistics]
+[metrics.install_volume_win7.statistics]
 sum = {}
+mean = {}
+
+[metrics.install_volume_win8]
+data_source = "firefox_installs"
+select_expression = "IF(ANY_VALUE(os) = 'Win8', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
+type = "scalar"
+
+[metrics.install_volume_win8.statistics]
+sum = {}
+mean = {}
+
+[metrics.install_volume_win8_1]
+data_source = "firefox_installs"
+select_expression = "IF(ANY_VALUE(os) = 'Win8.1', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
+type = "scalar"
+
+[metrics.install_volume_win8_1.statistics]
+sum = {}
+mean = {}
+
+[metrics.install_volume_win10]
+data_source = "firefox_installs"
+select_expression = "IF(ANY_VALUE(os) = 'Win10', IF(LOGICAL_OR(succeeded), 1, 0) * 100, NULL)"
+type = "scalar"
+
+[metrics.install_volume_win10.statistics]
+sum = {}
+mean = {}
 
 [alerts]
 
-[alerts.install_success_rate]
+[alerts.install_success_rate_win]
 type = "threshold"
 metrics = [
-    "install_success_rate"
+    "install_volume_win7",
+    "install_volume_win8_1",
+    "install_volume_win10"
 ]
-# This one number is applied to each OS, unfortunately. Ideally
-# we would have per-branch configuration, since each Windows version
-# has its own fairly steady success rate.
+min = [90]
+
+[alerts.install_success_rate_win8]
+type = "threshold"
+metrics = [
+    "install_volume_win8",
+]
 min = [86]
+
 
 [data_sources]
 
 [data_sources.firefox_installs]
 from_expression = """
     (
-        WITH success_rate_per_branch AS (
-            SELECT 
-                DATE(submission_timestamp) AS submission_date,
-                document_id,
-                build_channel,
-                succeeded,
-                CASE 
-                    WHEN os_version LIKE '6.1%' THEN 'Win7'
-                    WHEN os_version LIKE '6.2%' THEN 'Win8'
-                    WHEN os_version LIKE '6.3%' THEN 'Win8.1'
-                    WHEN os_version LIKE '10%' THEN 'Win10'
-                    ELSE "other"
-                END as branch,
-            FROM mozdata.firefox_installer.install
-            WHERE 
-                build_channel = "release"
-                AND installer_type = 'stub'
-        )
         SELECT 
-        submission_date,
-        document_id,
-        build_channel,
-        succeeded,
-        STRUCT (    -- this is the structure opmon expects
-            [
-            STRUCT (
-                "firefox-install-demo" AS key,   -- dummy experiment/rollout slug to make opmon happy
-                STRUCT(branch AS branch) AS value
-            )
-            ] AS experiments
-        ) AS environment
-        FROM success_rate_per_branch
-        WHERE branch != "other"
+            DATE(submission_timestamp) AS submission_date,
+            document_id,
+            build_channel,
+            succeeded,
+            CASE 
+                WHEN os_version LIKE '6.1%' THEN 'Win7'
+                WHEN os_version LIKE '6.2%' THEN 'Win8'
+                WHEN os_version LIKE '6.3%' THEN 'Win8.1'
+                WHEN os_version LIKE '10%' THEN 'Win10'
+                ELSE "other"
+            END as os,
+        FROM mozdata.firefox_installer.install
+        WHERE 
+            build_channel = "release"
+            AND installer_type = 'stub'
     )
 """
 submission_date_column = "submission_date"
