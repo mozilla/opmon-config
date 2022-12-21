@@ -1,5 +1,6 @@
 [project]
 
+platform = "firefox_desktop"
 xaxis = "submission_date"
 metrics = [
     'memory_total'
