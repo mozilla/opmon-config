@@ -20,7 +20,7 @@ jobs:
       with:
         files: definitions/*.toml
     outputs:
-      changed_files: ${{ steps.changed-files-specific.outputs.all_changed_files }}
+      any_changed: ${{ steps.changed-files-specific.outputs.any_changed }}
 
   approve:
     name: Run step if any file(s) change
