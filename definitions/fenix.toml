@@ -67,3 +67,4 @@ percentile = { percentiles = [25, 50, 75, 95] }
 
 [metrics.storage_stats_data_dir_bytes.statistics]
 percentile = { percentiles = [25, 50, 75, 95] }
+
