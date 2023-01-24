@@ -6,4 +6,3 @@ sum = {}
 
 [metrics.metric_ping_count.statistics]
 sum = {}
-
