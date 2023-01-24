@@ -2,24 +2,43 @@ name: "Auto comment"
 on:
   pull_request_target:
     types: [opened]
-
-permissions: write-all
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  binder:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest 
+    name: Test changed-files
     permissions:
       pull-requests: write
     steps:
-    - name: comment on PR with Binder link
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.rest.pulls.createReview({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number,
-            event: "APPROVE"
-          })
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 
+      - name: Get changed files in the definitions folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: definitions/*.{toml} 
 
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+
+      - name: approve pr
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: "APPROVE"
+            })
