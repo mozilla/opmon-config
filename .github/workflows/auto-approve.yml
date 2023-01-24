@@ -1,30 +1,27 @@
-name: Auto approve
-
-on: pull_request_target
+name: "Auto comment"
+on:
+  pull_request_target:
+    types: [opened]
 
 jobs:
-  paths-filter:
+  binder:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.filter.outputs.workflows }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          workflows:
-            - 'defaults/**'
-    # run only if 'defaults' files were changed
-    - name: workflow tests
-      if: steps.filter.outputs.defaults == 'true'
-      run: echo "Workflow file"
-
-  approve:
-    runs-on: ubuntu-latest
-    needs: paths-filter
     permissions:
       pull-requests: write
-    if: needs.paths-filter.outputs.defaults == 'true'
     steps:
-      - uses: hmarr/auto-approve-action@v3
+    - name: comment on PR with Binder link
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          var PR_HEAD_USERREPO = process.env.PR_HEAD_USERREPO;
+          var PR_HEAD_REF = process.env.PR_HEAD_REF;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `test comment`
+          })
+      env:
+        PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        PR_HEAD_USERREPO: ${{ github.event.pull_request.head.repo.full_name }}
