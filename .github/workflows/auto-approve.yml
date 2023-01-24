@@ -1,11 +1,7 @@
 name: "Auto comment"
 on:
   pull_request_target:
-    types: [opened]
-  push:
-    branches:
-      - main
-  pull_request:
+    types: [opened, edited]
     branches:
       - main
 
@@ -21,7 +17,7 @@ jobs:
           fetch-depth: 0 
       - name: Get changed files in the definitions folder
         id: changed-files-specific
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v34
         with:
           files: definitions/*.{toml} 
 
