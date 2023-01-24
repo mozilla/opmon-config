@@ -16,11 +16,11 @@ jobs:
         script: |
           var PR_HEAD_USERREPO = process.env.PR_HEAD_USERREPO;
           var PR_HEAD_REF = process.env.PR_HEAD_REF;
-          github.rest.issues.createComment({
-            issue_number: context.issue.number,
+          const result = await github.pulls.createReview({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `test comment`
+            pull_number: context.issue.number,
+            event: "APPROVE"
           })
       env:
         PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
