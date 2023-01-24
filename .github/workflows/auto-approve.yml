@@ -22,4 +22,3 @@ jobs:
             pull_number: context.issue.number,
             event: "APPROVE"
           })
-
