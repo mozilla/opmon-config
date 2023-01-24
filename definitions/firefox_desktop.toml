@@ -226,7 +226,6 @@ percentile = { percentiles = [25, 50, 75, 95] }
 percentile = { percentiles = [25, 50, 75, 95] }
 
 [data_sources]
-
   
 [data_sources.main]
 from_expression = "mozdata.telemetry.main_1pct"
