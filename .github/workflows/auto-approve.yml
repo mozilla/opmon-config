@@ -1,4 +1,4 @@
-name: "Auto comment"
+name: "Auto approve"
 on:
   pull_request:
     branches:
@@ -13,20 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 
+          fetch-depth: 2 
       - name: Get changed files in the definitions folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v34
         with:
-          files: definitions/*.{toml} 
+          files: definitions/*.toml
+      outputs:
+        changed_files: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
-      - name: Run step if any file(s) in the docs folder change
-        if: steps.changed-files-specific.outputs.any_changed == 'true'
-        run: |
-          echo "One or more files in the docs folder has changed."
-          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-
-      - name: approve pr
+      - name: Run step if any file(s) change
+        needs: changed-files-specific
         uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
